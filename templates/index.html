@@ -152,7 +152,7 @@
                     <p style="padding-bottom: 20px; margin-top: 0; color: #4A4A4A">
                     Support our team. Catch the cricket games this season at the my house.
                     </p>               
-                    <div id="news-section" class="news-slider">
+                    <div id="cricket-news-section" class="news-slider">
                         {% for news in cricket_data %}
                         <div class="news-slide {% if loop.first %}active{% endif %}">
                             <a href="{{ news['link'] }}" target="_blank"><h3>{{ news['title'] }}</h3></a>
@@ -163,7 +163,7 @@
                     </div>
                     <div class="news-slider-bullets">
                         {% for news in cricket_data %}
-                        <span class="{% if loop.first %}active{% endif %}" onclick="showSlide('{{ loop.index0 }}')"></span>
+                        <span class="{% if loop.first %}active{% endif %}" onclick="showCricketSlide('{{ loop.index0 }}')"></span>
                         {% endfor %}
                     </div>
                 </div>
@@ -191,7 +191,7 @@
                     </div>
                     <div class="news-slider-bullets">
                         {% for news in news_data %}
-                        <span class="{% if loop.first %}active{% endif %}" onclick="showSlide('{{ loop.index0 }}')"></span>
+                        <span class="{% if loop.first %}active{% endif %}" onclick="showNewsSlide('{{ loop.index0 }}')"></span>
                         {% endfor %}
                     </div>
                 </div>
@@ -240,47 +240,84 @@
         <p>Running Python Version: {{ python_version }}</p>
     </div>
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.news-slide');
-        const bullets = document.querySelectorAll('.news-slider-bullets span');
+        let currentCricketSlide = 0;
+        const cricketSlides = document.querySelectorAll('#cricket-news-section .news-slide');
+        const cricketBullets = document.querySelectorAll('#cricket-news-section + .news-slider-bullets span');
 
-        function showSlide(index) {
-            slides[currentSlide].classList.remove('active');
-            bullets[currentSlide].classList.remove('active');
-            currentSlide = (index + slides.length) % slides.length;
-            slides[currentSlide].classList.add('active');
-            bullets[currentSlide].classList.add('active');
+        function showCricketSlide(index) {
+            cricketSlides[currentCricketSlide].classList.remove('active');
+            cricketBullets[currentCricketSlide].classList.remove('active');
+            currentCricketSlide = parseInt(index, 10);
+            cricketSlides[currentCricketSlide].classList.add('active');
+            cricketBullets[currentCricketSlide].classList.add('active');
         }
 
-        function nextSlide() {
-            showSlide(currentSlide + 1);
+        function nextCricketSlide() {
+            showCricketSlide(currentCricketSlide + 1);
         }
 
-        function prevSlide() {
-            showSlide(currentSlide - 1);
+        function prevCricketSlide() {
+            showCricketSlide(currentCricketSlide - 1);
         }
 
         let startX = 0;
         let endX = 0;
 
-        document.querySelector('.news-slider').addEventListener('touchstart', function(event) {
+        document.querySelector('#cricket-news-section').addEventListener('touchstart', function(event) {
             startX = event.touches[0].clientX;
         });
 
-        document.querySelector('.news-slider').addEventListener('touchmove', function(event) {
+        document.querySelector('#cricket-news-section').addEventListener('touchmove', function(event) {
             endX = event.touches[0].clientX;
         });
 
-        document.querySelector('.news-slider').addEventListener('touchend', function() {
+        document.querySelector('#cricket-news-section').addEventListener('touchend', function() {
             if (startX > endX + 50) {
-                nextSlide();
+                nextCricketSlide();
             } else if (startX < endX - 50) {
-                prevSlide();
+                prevCricketSlide();
             }
         });
 
-        // Automatically scroll the news section
-        setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        setInterval(nextCricketSlide, 5000); // Change cricket slide every 5 seconds
+
+        let currentNewsSlide = 0;
+        const newsSlides = document.querySelectorAll('#news-section .news-slide');
+        const newsBullets = document.querySelectorAll('#news-section + .news-slider-bullets span');
+
+        function showNewsSlide(index) {
+            newsSlides[currentNewsSlide].classList.remove('active');
+            newsBullets[currentNewsSlide].classList.remove('active');
+            currentNewsSlide = parseInt(index, 10);
+            newsSlides[currentNewsSlide].classList.add('active');
+            newsBullets[currentNewsSlide].classList.add('active');
+        }
+
+        function nextNewsSlide() {
+            showNewsSlide((currentNewsSlide + 1) % newsSlides.length);
+        }
+
+        function prevNewsSlide() {
+            showNewsSlide((currentNewsSlide - 1 + newsSlides.length) % newsSlides.length);
+        }
+
+        document.querySelector('#news-section').addEventListener('touchstart', function(event) {
+            startX = event.touches[0].clientX;
+        });
+
+        document.querySelector('#news-section').addEventListener('touchmove', function(event) {
+            endX = event.touches[0].clientX;
+        });
+
+        document.querySelector('#news-section').addEventListener('touchend', function() {
+            if (startX > endX + 50) {
+                nextNewsSlide();
+            } else if (startX < endX - 50) {
+                prevNewsSlide();
+            }
+        });
+
+        setInterval(nextNewsSlide, 5000); // Change news slide every 5 seconds
     </script>
 </body>
 </html>
