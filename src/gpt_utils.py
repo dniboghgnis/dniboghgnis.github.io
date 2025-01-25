@@ -7,4 +7,3 @@ def call_gemini_api(query = "Explain how AI works in hindi"):
     response = model.generate_content(query)
     print(response.text)
     return response.text
-

@@ -8,20 +8,16 @@ app = Flask(__name__)
 def home():
     title = 'Welcome to Our Website!'
     python_version = sys.version
-    news_df = get_top_news()
-    news_data = news_df.to_dict(orient='records')
-    print(news_data)
+    general_news = get_top_news()
     cricket_news = get_top_news(search_term="Cricket")
-    cricket_data = cricket_news.to_dict(orient='records')
-    print(cricket_data)
     poem = call_gemini_api(query="give a classical poem, any 2-4 lines would do. add new lines whereever required.\
                             end it with a new line and - name of author, and year of publication. \
                            avoid copyright material and anonymous, and always prefer famous poets")
     return render_template('index.html', 
                            title=title, 
                            python_version=python_version, 
-                           news_data=news_data, 
-                           cricket_data=cricket_data, 
+                           news_data=general_news, 
+                           cricket_data=cricket_news, 
                            poem = poem)
 
 
@@ -29,9 +25,22 @@ def home():
 def about():
     title = 'About Us'
     python_version = sys.version
-    news_df = get_top_news()
-    news_data = news_df.to_dict(orient='records')
-    return render_template('index.html', title=title,  python_version=python_version, news_data=news_data)
+    general_news = get_top_news()
+    print("General News: ", general_news)
+    cricket_news = get_top_news(search_term="Cricket")
+    print("Cricket News: ", cricket_news)
+    poem = call_gemini_api(query="give a classical poem, any 2-4 lines would do. add new lines whereever required.\
+                            end it with a new line and - name of author, and year of publication. \
+                           avoid copyright material and anonymous, and always prefer famous poets")
+    print("Poem: ", poem)
+    return render_template('index.html', 
+                           title=title, 
+                           python_version=python_version, 
+                           news_data=general_news, 
+                           cricket_data=cricket_news, 
+                           poem = poem)
+
+
 
 if __name__ == '__main__':
     import os 
