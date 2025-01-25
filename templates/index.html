@@ -16,7 +16,12 @@
             width: 100%;
             margin: 0;
             padding: 0;
+        }
+        h1 {
             text-align: center;
+        }
+        h3 {
+            text-align: left;
         }
         .container {
             padding: 0 20px;
@@ -73,9 +78,29 @@
             color: white;
             cursor: pointer;
         }
+        .news-slider-bullets {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .news-slider-bullets span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 5px;
+            background-color: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .news-slider-bullets .active {
+            background-color: #EAAF47;
+        }
         .social-media img {
             width: 35px;
             margin: 0 5px;
+        }
+        .divider {
+            border-top: 1px solid #ccc;
+            margin: 50px 0;
         }
         @media screen and (max-width: 600px) {
             .remove-flex-mobile {
@@ -111,9 +136,11 @@
     </style>
 </head>
 <body>
+    <div class="divider"></div>
     <div class="container">
-        <img src="{{ url_for('static', filename='image-assets/c2.jpg') }}" alt="email hero image" class="full-image" style="margin-top: 20px;">
+        <img src="{{ url_for('static', filename='image-assets/c2.jpg') }}" alt="email hero image" class="full-image">
     </div>
+    <div class="divider"></div>
     <ul class="container">
         <li style="list-style-type: none; padding-bottom: 50px; margin-left: 0;">
             <div class="remove-flex-mobile" style="display:flex; justify-content:space-between;">
@@ -121,7 +148,7 @@
                     <img src="{{ url_for('static', filename='image-assets/wtc.jpg') }}" alt="" class="fixed-size">
                 </div>
                 <div style="flex-basis: 100%; padding-left: 30px;" class="remove-flex-basis-mobile">
-                    <h3 style="text-transform: uppercase; font-size: 28px; margin-top: 0; margin-bottom: 10px; color: #4A4A4A" class="list-header">CRICKET SEASON IS HERE</h3>
+                    <h3 style="text-transform: uppercase; font-size: 28px; margin-top: 0; margin-bottom: 10px; color: #4A4A4A; text-align: left;" class="list-header">CRICKET SEASON IS HERE</h3>
                     <p style="padding-bottom: 20px; margin-top: 0; color: #4A4A4A">
                     Support our team. Catch the cricket games this season at the my house.
                     </p>
@@ -129,41 +156,42 @@
                 </div>
             </div>
         </li>
+        <div class="divider"></div>
         <li style="list-style-type: none; padding-bottom: 50px; margin-left: 0;">
             <div class="remove-flex-mobile" style="display:flex;">
                 <div style="flex-basis: 90%;" class="remove-flex-basis-mobile">
                     <img src="{{ url_for('static', filename='image-assets/news.jpg') }}" alt="" class="fixed-size">
                 </div>
                 <div style="flex-basis: 100%; padding-left: 30px; width: 100%;" class="remove-flex-basis-mobile news-container">
-                    <h3 style="text-transform: uppercase; font-size: 28px; margin-top: 0; margin-bottom: 10px; color: #4A4A4A" class="list-header">NEWS SUMMARIZATION</h3>
+                    <h3 style="text-transform: uppercase; font-size: 20px; margin-top: 0; margin-bottom: 10px; color: #4A4A4A; text-align: left;" class="list-header">NEWS SUMMARIZATION</h3>
                     <p style="padding-bottom: 20px; margin-top: 0; color: #4A4A4A">
                     Unbaised and concise news articles from A.I's point of view is on the horizon. Stay tuned.
                     </p>
-                    <div id="news-section">
-                        <div class="news-slider">
-                            {% for news in news_data %}
-                            <div class="news-slide {% if loop.first %}active{% endif %}">
-                                <h3>{{ news['title'] }}</h3>
-                                <p>{{ news['desc'] }}</p>
-                                <a href="{{ news['link'] }}" target="_blank">{{ news['media'] }}</a>
-                            </div>
-                            {% endfor %}
+                    <div id="news-section" class="news-slider">
+                        {% for news in news_data %}
+                        <div class="news-slide {% if loop.first %}active{% endif %}">
+                            <h3>{{ news['title'] }}</h3>
+                            <p>{{ news['desc'] }}</p>
+                            <a href="{{ news['link'] }}" target="_blank">{{ news['media'] }}</a>
                         </div>
-                        <div class="news-slider-controls">
-                            <button onclick="prevSlide()">Previous</button>
-                            <button onclick="nextSlide()">Next</button>
-                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="news-slider-bullets">
+                        {% for news in news_data %}
+                        <span class="{% if loop.first %}active{% endif %}" onclick="showSlide({{ loop.index0 }});"></span>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </li>
+        <div class="divider"></div>
         <li style="list-style-type: none; padding-bottom: 50px; margin-left: 0;">
             <div class="remove-flex-mobile" style="display:flex; justify-content:space-between; align-items: flex-start;">
                 <div style="flex-basis: 90%;" class="remove-flex-basis-mobile">
                     <img src="{{ url_for('static', filename='image-assets/knowledge.jpg') }}" alt="" class="full-image">
                 </div>
                 <div style="flex-basis: 100%; padding-left: 30px; width: 100%;" class="remove-flex-basis-mobile">
-                    <h3 style="text-transform: uppercase; font-size: 28px; margin-top: 0px; margin-bottom: 10px;" class="list-header">KNOWLEDGE MEETING</h3>
+                    <h3 style="text-transform: uppercase; font-size: 20px; margin-top: 0px; margin-bottom: 10px; text-align: left;" class="list-header">KNOWLEDGE MEETING</h3>
                     <p style="padding-bottom: 20px; margin-top: 0;">
                     Attend our weekly/bi-weekly meetings and return home just that little bit wiser.
                     </p>
@@ -171,6 +199,7 @@
             </div>
         </li>
     </ul>
+    <div class="divider"></div>
     <div style="background-color: #EAAF47; padding: 20px; text-align: center;">
         <h5 style="margin-bottom: 10px;">Follow us on our social media accounts</h5>                        
         <div style="padding-bottom: 10px; padding-top: 10px;" class="social-media">
@@ -200,11 +229,14 @@
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.news-slide');
+        const bullets = document.querySelectorAll('.news-slider-bullets span');
 
         function showSlide(index) {
             slides[currentSlide].classList.remove('active');
+            bullets[currentSlide].classList.remove('active');
             currentSlide = (index + slides.length) % slides.length;
             slides[currentSlide].classList.add('active');
+            bullets[currentSlide].classList.add('active');
         }
 
         function nextSlide() {
@@ -214,6 +246,25 @@
         function prevSlide() {
             showSlide(currentSlide - 1);
         }
+
+        let startX = 0;
+        let endX = 0;
+
+        document.querySelector('.news-slider').addEventListener('touchstart', function(event) {
+            startX = event.touches[0].clientX;
+        });
+
+        document.querySelector('.news-slider').addEventListener('touchmove', function(event) {
+            endX = event.touches[0].clientX;
+        });
+
+        document.querySelector('.news-slider').addEventListener('touchend', function() {
+            if (startX > endX + 50) {
+                nextSlide();
+            } else if (startX < endX - 50) {
+                prevSlide();
+            }
+        });
     </script>
 </body>
 </html>
