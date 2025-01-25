@@ -23,6 +23,7 @@ def home():
     python_version = sys.version
     news_df = get_top_news()
     news_data = news_df.to_dict(orient='records')
+    print(news_data)
     return render_template('index.html', title=title, python_version=python_version, news_data=news_data)
 
 
