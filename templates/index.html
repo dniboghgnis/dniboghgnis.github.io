@@ -47,6 +47,7 @@
             width: 100%;
             overflow: hidden;
             flex-grow: 1;
+            height: 300px; /* Set a fixed height for the news slider */
         }
         .news-slide {
             display: none;
@@ -138,7 +139,7 @@
 <body>
     <div class="divider"></div>
     <div class="container">
-        <img src="{{ url_for('static', filename='image-assets/c2.jpg') }}" alt="email hero image" class="full-image">
+        <img src="{{ url_for('static', filename='image-assets/c2.jpg') }}" alt="email hero image" class="full-image" style="margin-top: 50px;">
     </div>
     <div class="divider"></div>
     <ul class="container">
@@ -152,7 +153,20 @@
                     <p style="padding-bottom: 20px; margin-top: 0; color: #4A4A4A">
                     Support our team. Catch the cricket games this season at the my house.
                     </p>
-                    <a href="https://www.cricbuzz.com/cricket-series/3468/icc-world-test-championship-final-2021" style="text-decoration: none; text-transform: uppercase; cursor: pointer; line-height: 1.1em; letter-spacing: 0; padding: 12px; background: #EAAF47; color: #4A4A4A; border-radius: 8px; text-align: center; font-size: 16px; font-weight: bold; box-sizing: border-box;">Read More</a>
+                    <div id="news-section" class="news-slider">
+                        {% for news in news_data %}
+                        <div class="news-slide {% if loop.first %}active{% endif %}">
+                            <a href="{{ news['link'] }}" target="_blank"><h3>{{ news['title'] }}</h3></a>
+                            <p>{{ news['desc'] }}</p>
+                            <a href="{{ news['link'] }}" target="_blank">{{ news['media'] }}</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="news-slider-bullets">
+                        {% for news in news_data %}
+                        <span class="{% if loop.first %}active{% endif %}" onclick="showSlide('{{ loop.index0 }}')"></span>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </li>
@@ -163,14 +177,14 @@
                     <img src="{{ url_for('static', filename='image-assets/news.jpg') }}" alt="" class="fixed-size">
                 </div>
                 <div style="flex-basis: 100%; padding-left: 30px; width: 100%;" class="remove-flex-basis-mobile news-container">
-                    <h3 style="text-transform: uppercase; font-size: 20px; margin-top: 0; margin-bottom: 10px; color: #4A4A4A; text-align: left;" class="list-header">NEWS SUMMARIZATION</h3>
+                    <h3 style="text-transform: uppercase; font-size: 28px; margin-top: 0; margin-bottom: 10px; color: #4A4A4A; text-align: left;" class="list-header">NEWS SUMMARIZATION</h3>
                     <p style="padding-bottom: 20px; margin-top: 0; color: #4A4A4A">
                     Unbaised and concise news articles from A.I's point of view is on the horizon. Stay tuned.
                     </p>
                     <div id="news-section" class="news-slider">
                         {% for news in news_data %}
                         <div class="news-slide {% if loop.first %}active{% endif %}">
-                            <h3>{{ news['title'] }}</h3>
+                            <a href="{{ news['link'] }}" target="_blank"><h3>{{ news['title'] }}</h3></a>
                             <p>{{ news['desc'] }}</p>
                             <a href="{{ news['link'] }}" target="_blank">{{ news['media'] }}</a>
                         </div>
@@ -178,7 +192,7 @@
                     </div>
                     <div class="news-slider-bullets">
                         {% for news in news_data %}
-                        <span class="{% if loop.first %}active{% endif %}" onclick="showSlide({{ loop.index0 }});"></span>
+                        <span class="{% if loop.first %}active{% endif %}" onclick="showSlide('{{ loop.index0 }}')"></span>
                         {% endfor %}
                     </div>
                 </div>
@@ -265,6 +279,9 @@
                 prevSlide();
             }
         });
+
+        // Automatically scroll the news section
+        setInterval(nextSlide, 5000); // Change slide every 5 seconds
     </script>
 </body>
 </html>
