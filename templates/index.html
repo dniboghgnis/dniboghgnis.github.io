@@ -186,6 +186,7 @@
                             <a href="{{ news['link'] }}" target="_blank"><h3>{{ news['title'] }}</h3></a>
                             <p>{{ news['desc'] }}</p>
                             <a href="{{ news['link'] }}" target="_blank">{{ news['media'] }}</a>
+                            <p style="font-size: 12px;"> Updated on: {{ news['datetime'] }}</p>
                         </div>
                         {% endfor %}
                     </div>
@@ -253,11 +254,11 @@
         }
 
         function nextCricketSlide() {
-            showCricketSlide(currentCricketSlide + 1);
+            showCricketSlide((currentCricketSlide + 1) % cricketSlides.length);
         }
 
         function prevCricketSlide() {
-            showCricketSlide(currentCricketSlide - 1);
+            showCricketSlide((currentCricketSlide - 1 + cricketSlides.length) % cricketSlides.length);
         }
 
         let startX = 0;
