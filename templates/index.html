@@ -6,6 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{{ title }}</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         @media screen and (max-width: 600px) {
             .remove-flex-mobile {
                 display: block !important;
@@ -17,12 +23,21 @@
             .display-grid-mobile {
                 grid-template-columns: 1fr !important;
             }
+            .news-container {
+                height: auto; /* Adjust height for mobile */
+            }
+            .fixed-size {
+                height: auto; /* Adjust height for mobile */
+            }
         }
         h1, h3 {
             width: 100%;
             margin: 0;
             padding: 0;
             text-align: center;
+        }
+        .container {
+            padding: 0 20px;
         }
         .fixed-size {
             width: 100%;
@@ -31,7 +46,7 @@
         }
         .full-image {
             width: 100%;
-            height: 100%; /* Set height to match the fixed size */
+            height: auto; /* Maintain aspect ratio */
             object-fit: cover; /* Ensure the image covers the area */
         }
         .news-container {
@@ -76,13 +91,17 @@
             color: white;
             cursor: pointer;
         }
+        .social-media img {
+            width: 35px;
+            margin: 0 5px;
+        }
     </style>
 </head>
 <body>
-    <div style="padding: 0 20px;">
+    <div class="container">
         <img src="{{ url_for('static', filename='image-assets/c2.jpg') }}" alt="email hero image" class="full-image">
     </div>
-    <ul style="padding: 0 20px;">
+    <ul class="container">
         <li style="list-style-type: none; padding-bottom: 50px; margin-left: 0;">
             <div class="remove-flex-mobile" style="display:flex; justify-content:space-between;">
                 <div style="flex-basis: 90%;" class="remove-flex-basis-mobile">
@@ -104,9 +123,9 @@
                 </div>
                 <div style="flex-basis: 100%; padding-left: 30px; width: 100%;" class="remove-flex-basis-mobile news-container">
                     <h3 style="text-transform: uppercase; font-size: 28px; margin-top: 0; margin-bottom: 10px; color: #4A4A4A" class="list-header">NEWS SUMMARIZATION</h3>
-                    <!-- <p style="padding-bottom: 20px; margin-top: 0; color: #4A4A4A">
+                    <p style="padding-bottom: 20px; margin-top: 0; color: #4A4A4A">
                     Unbaised and concise news articles from A.I's point of view is on the horizon. Stay tuned.
-                    </p> -->
+                    </p>
                     <div id="news-section">
                         <div class="news-slider">
                             {% for news in news_data %}
@@ -143,28 +162,27 @@
         <h5 style="margin-bottom: 10px;">Follow us on our social media accounts</h5>                        
         <div style="padding-bottom: 10px; padding-top: 10px;" class="social-media">
             <a href="https://www.facebook.com/dnibog.hgnis/" style="color: #4A4A4A; text-decoration: none; cursor: pointer; padding: 0 5px;">
-                <img src="{{ url_for('static', filename='image-assets/facebook.png') }}" alt="facebook icon" style="width: 35px;">
+                <img src="{{ url_for('static', filename='image-assets/facebook.png') }}" alt="facebook icon">
             </a>
             <a href="https://www.google.com/" style="color: #4A4A4A; text-decoration: none; cursor: pointer; padding: 0 5px;">
-                <img src="{{ url_for('static', filename='image-assets/google-plus.png') }}" alt="google plus icon" style="width: 35px;">
+                <img src="{{ url_for('static', filename='image-assets/google-plus.png') }}" alt="google plus icon">
             </a>
             <a href="https://www.instagram.com/_gobind_/" style="color: #4A4A4A; text-decoration: none; cursor: pointer; padding: 0 5px;">
-                <img src="{{ url_for('static', filename='image-assets/ig.png') }}" alt="instagram icon" style="width: 35px;">
+                <img src="{{ url_for('static', filename='image-assets/ig.png') }}" alt="instagram icon">
             </a>
             <a href="https://www.pinterest.com/" style="color: #4A4A4A; text-decoration: none; cursor: pointer; padding: 0 5px;">
-                <img src="{{ url_for('static', filename='image-assets/pinterest.png') }}" alt="pinterest icon" style="width: 35px;">
+                <img src="{{ url_for('static', filename='image-assets/pinterest.png') }}" alt="pinterest icon">
             </a>
             <a href="https://www.linkedin.com/in/dniboghgnis/" style="color: #4A4A4A; text-decoration: none; cursor: pointer; padding: 0 5px;">
-                <img src="{{ url_for('static', filename='image-assets/linkedin.png') }}" alt="linkedin icon" style="width: 35px;">
+                <img src="{{ url_for('static', filename='image-assets/linkedin.png') }}" alt="linkedin icon">
             </a>
             <a href="https://twitter.com/" style="color: #4A4A4A; text-decoration: none; cursor: pointer; padding: 0 5px;">
-                <img src="{{ url_for('static', filename='image-assets/twitter.png') }}" alt="twitter icon" style="width: 35px;">
+                <img src="{{ url_for('static', filename='image-assets/twitter.png') }}" alt="twitter icon">
             </a>
         </div>
     </div>
-    <!-- <h1>{{ title }}</h1> -->
-    <div id="python-output">
-        <p>  Running Python Version: {{ python_version }}</p>
+    <div class="container">
+        <p>Running Python Version: {{ python_version }}</p>
     </div>
     <script>
         let currentSlide = 0;
