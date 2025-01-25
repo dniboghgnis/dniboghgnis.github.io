@@ -14,7 +14,7 @@ def get_top_news(period="1h", search_term="India"):
     news_object.clear()
 
     news_dataframe = pd.DataFrame.from_dict(news)
-    return news_dataframe.drop(columns=["img"])
+    return news_dataframe
 
 @app.route('/')
 # def home():
