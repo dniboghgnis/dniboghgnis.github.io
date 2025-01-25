@@ -11,7 +11,10 @@ def home():
     news_df = get_top_news()
     news_data = news_df.to_dict(orient='records')
     print(news_data)
-    return render_template('index.html', title=title, python_version=python_version, news_data=news_data)
+    cricket_news = get_top_news(search_term="Cricket")
+    cricket_data = cricket_news.to_dict(orient='records')
+    print(cricket_data)
+    return render_template('index.html', title=title, python_version=python_version, news_data=news_data, cricket_data=cricket_data)
 
 
 @app.route('/about/')

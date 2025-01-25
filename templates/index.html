@@ -101,7 +101,7 @@
         }
         .divider {
             border-top: 1px solid #ccc;
-            margin: 50px 0;
+            margin: 20px 0;
         }
         @media screen and (max-width: 600px) {
             .remove-flex-mobile {
@@ -137,9 +137,8 @@
     </style>
 </head>
 <body>
-    <div class="divider"></div>
     <div class="container">
-        <img src="{{ url_for('static', filename='image-assets/c2.jpg') }}" alt="email hero image" class="full-image" style="margin-top: 50px;">
+        <img src="{{ url_for('static', filename='image-assets/c2.jpg') }}" alt="email hero image" class="full-image" style="margin-top: 20px;">
     </div>
     <div class="divider"></div>
     <ul class="container">
@@ -148,13 +147,13 @@
                 <div style="flex-basis: 90%;" class="remove-flex-basis-mobile">
                     <img src="{{ url_for('static', filename='image-assets/wtc.jpg') }}" alt="" class="fixed-size">
                 </div>
-                <div style="flex-basis: 100%; padding-left: 30px;" class="remove-flex-basis-mobile">
+                <div style="flex-basis: 100%; padding-left: 30px;" class="remove-flex-basis-mobile news-container">
                     <h3 style="text-transform: uppercase; font-size: 28px; margin-top: 0; margin-bottom: 10px; color: #4A4A4A; text-align: left;" class="list-header">CRICKET SEASON IS HERE</h3>
                     <p style="padding-bottom: 20px; margin-top: 0; color: #4A4A4A">
                     Support our team. Catch the cricket games this season at the my house.
-                    </p>
+                    </p>               
                     <div id="news-section" class="news-slider">
-                        {% for news in news_data %}
+                        {% for news in cricket_data %}
                         <div class="news-slide {% if loop.first %}active{% endif %}">
                             <a href="{{ news['link'] }}" target="_blank"><h3>{{ news['title'] }}</h3></a>
                             <p>{{ news['desc'] }}</p>
@@ -163,7 +162,7 @@
                         {% endfor %}
                     </div>
                     <div class="news-slider-bullets">
-                        {% for news in news_data %}
+                        {% for news in cricket_data %}
                         <span class="{% if loop.first %}active{% endif %}" onclick="showSlide('{{ loop.index0 }}')"></span>
                         {% endfor %}
                     </div>
