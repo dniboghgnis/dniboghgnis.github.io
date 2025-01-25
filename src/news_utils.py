@@ -10,6 +10,7 @@ def get_top_news(period="1h", search_term="India"):
     news_object.clear()
 
     news_dataframe = pd.DataFrame.from_dict(news)
+    print(news_dataframe.columns)
     news_dataframe['link'] = news_dataframe['link'].map(lambda x: x.split('&ved')[0])
     
     # Convert datetime column to the desired format
