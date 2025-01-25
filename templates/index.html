@@ -12,24 +12,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-        @media screen and (max-width: 600px) {
-            .remove-flex-mobile {
-                display: block !important;
-            }
-            .remove-flex-basis-mobile {
-                flex-basis: unset !important;
-                padding-left: 0 !important;
-            }
-            .display-grid-mobile {
-                grid-template-columns: 1fr !important;
-            }
-            .news-container {
-                height: auto; /* Adjust height for mobile */
-            }
-            .fixed-size {
-                height: auto; /* Adjust height for mobile */
-            }
-        }
         h1, h3 {
             width: 100%;
             margin: 0;
@@ -95,6 +77,37 @@
             width: 35px;
             margin: 0 5px;
         }
+        @media screen and (max-width: 600px) {
+            .remove-flex-mobile {
+                display: block !important;
+            }
+            .remove-flex-basis-mobile {
+                flex-basis: unset !important;
+                padding-left: 0 !important;
+            }
+            .display-grid-mobile {
+                grid-template-columns: 1fr !important;
+            }
+            .news-container {
+                height: auto; /* Adjust height for mobile */
+            }
+            .fixed-size {
+                height: auto; /* Adjust height for mobile */
+            }
+            .news-slider-controls button {
+                width: 100%; /* Make buttons full width */
+                margin: 5px 0; /* Add margin between buttons */
+            }
+            .container {
+                padding: 0 10px; /* Reduce padding for mobile */
+            }
+            h1, h3 {
+                font-size: 24px; /* Adjust font size for mobile */
+            }
+            .news-slide {
+                padding: 10px; /* Reduce padding for mobile */
+            }
+        }
     </style>
 </head>
 <body>
@@ -145,12 +158,12 @@
             </div>
         </li>
         <li style="list-style-type: none; padding-bottom: 50px; margin-left: 0;">
-            <div class="remove-flex-mobile" style="display:flex; justify-content:space-between;">
-                <div style="flex-basis: 90%;" class="remove-flex-basis-mobile">
-                    <img src="{{ url_for('static', filename='image-assets/knowledge.jpg') }}" alt="" class="fixed-size">
+            <div class="remove-flex-mobile" style="display:flex; justify-content:space-between; align-items: flex-start;">
+                <div style="flex-basis: 90%;" class="remove-flex-basis-mobile" style="margin-top: 50px;">
+                    <img src="{{ url_for('static', filename='image-assets/knowledge.jpg') }}" alt="" class="fixed-size" style="margin-top: 50px;">
                 </div>
                 <div style="flex-basis: 100%; padding-left: 30px; width: 100%;" class="remove-flex-basis-mobile">
-                    <h3 style="text-transform: uppercase; font-size: 28px; margin-top: 0; margin-bottom: 10px;" class="list-header">KNOWLEDGE MEETING</h3>
+                    <h3 style="text-transform: uppercase; font-size: 28px; margin-top: 50px; margin-bottom: 10px;" class="list-header">KNOWLEDGE MEETING</h3>
                     <p style="padding-bottom: 20px; margin-top: 0;">
                     Attend our weekly/bi-weekly meetings and return home just that little bit wiser.
                     </p>
