@@ -103,6 +103,15 @@
             border-top: 1px solid #ccc;
             margin: 20px 0;
         }
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
         @media screen and (max-width: 600px) {
             .remove-flex-mobile {
                 display: block !important;
@@ -133,12 +142,24 @@
             .news-slide {
                 padding: 10px; /* Reduce padding for mobile */
             }
+            .overlay-text {
+                font-size: 12px; /* Adjust font size for mobile */
+                padding: 0 10px; /* Add padding for better readability */
+            }
+        }
+        @media screen and (min-width: 601px) {
+            .overlay-text {
+                font-size: 24px; /* Adjust font size for desktop */
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="position: relative; text-align: center;">
         <img src="{{ url_for('static', filename='image-assets/c2.jpg') }}" alt="email hero image" class="full-image" style="margin-top: 20px;">
+        <div class="overlay-text" style="text-align: center;">
+            {{ poem }}
+        </div>
     </div>
     <div class="divider"></div>
     <ul class="container">

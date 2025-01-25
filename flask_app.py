@@ -1,10 +1,10 @@
 from flask import Flask, render_template
 import sys
 from src.news_utils import get_top_news
+from src.gpt_utils import call_gemini_api
 app = Flask(__name__)
 
 @app.route('/')
-
 def home():
     title = 'Welcome to Our Website!'
     python_version = sys.version
@@ -14,7 +14,15 @@ def home():
     cricket_news = get_top_news(search_term="Cricket")
     cricket_data = cricket_news.to_dict(orient='records')
     print(cricket_data)
-    return render_template('index.html', title=title, python_version=python_version, news_data=news_data, cricket_data=cricket_data)
+    poem = call_gemini_api(query="give a classical poem, any 2-4 lines would do. add new lines whereever required.\
+                            end it with a new line and - name of author, and year of publication. \
+                           avoid copyright material and anonymous, and always prefer famous poets")
+    return render_template('index.html', 
+                           title=title, 
+                           python_version=python_version, 
+                           news_data=news_data, 
+                           cricket_data=cricket_data, 
+                           poem = poem)
 
 
 @app.route('/about/')
