@@ -2,6 +2,7 @@
 def get_top_news(period="1h", search_term="India"):
     import pandas as pd
     from GoogleNews import GoogleNews
+    from datetime import datetime
 
     news_object = GoogleNews(period=period)
     news_object.search(search_term)
@@ -10,6 +11,10 @@ def get_top_news(period="1h", search_term="India"):
 
     news_dataframe = pd.DataFrame.from_dict(news)
     news_dataframe['link'] = news_dataframe['link'].map(lambda x: x.split('&ved')[0])
+    
+    # Convert datetime column to the desired format
+    news_dataframe['datetime'] = news_dataframe['datetime'].astype(str).apply(
+        lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S.%f').strftime('%A, %d %B %Y, %I:%M %p')
+    )
+    
     return news_dataframe
-
-print(get_top_news().columns)
